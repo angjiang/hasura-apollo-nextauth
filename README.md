@@ -9,6 +9,7 @@ This is an example of how to configure NextAuth with Hasura and Apollo.
 - Email (magiclink): requires a smtp provider
 
 ## Set up NextAuth Providers & Vars
+- make a copy of env.example and name as env.local
 - input auth provider variables to env and configure appropriate providers in the nextauth config
 - you must also add nextauth_url env var to dev and prod; this is used in the nextauth config. 
 

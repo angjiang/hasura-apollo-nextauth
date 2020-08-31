@@ -23,13 +23,7 @@ const options = {
   // * You must to install an appropriate node_module for your database
   // * The Email provider requires a database (OAuth providers do not)
 
-  //must pass ssl option to work with hasura db
-  /* database: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  }, */
+  //must pass ssl option to work with heroku db
 
   database: {
     type: 'postgres',
@@ -68,12 +62,8 @@ const options = {
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw', 
-    //secret: process.env.PRIVATE_KEY.replace(/\\n/gm, "\n"),
     private_key: process.env.PRIVATE_KEY.replace(/\\n/gm, "\n"),
     public_key: process.env.PUBLIC_KEY.replace(/\\n/gm, "\n"),
-
-    //default signing algo is HS512 which DOES NOT WORK WITH HASURA
     
     // Set to true to use encryption (default: false)
     // encryption: true,
@@ -137,10 +127,7 @@ const options = {
      */
     jwt: async (token, user, account, profile, isNewUser) => {
       const isSignIn = (user) ? true : false
-      // Add auth_time to token on signin in
       if (isSignIn) { 
-        //token.auth_time = Date.now()
-        
         const namespace = 'https://hasura.io/jwt/claims'
         const claims = {
           "x-hasura-allowed-roles": ["admin", "user"],
